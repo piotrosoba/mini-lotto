@@ -5,11 +5,6 @@ class Ball {
   constructor(container, num) {
     this.num = num
     this.div = container
-    this.container = {
-      width: container.offsetWidth,
-      height: container.offsetHeight
-    }
-
     this.ball = null
 
     this.createBall()
@@ -18,22 +13,15 @@ class Ball {
     this.ball = document.createElement('div')
 
     this.ball.classList.add('ball')
-    this.ball.style.width = this.width + 'px'
-    this.ball.style.height = this.height + 'px'
     this.ball.innerText = this.num
 
     return this
   }
-
   appendBall() {
     this.div.appendChild(this.ball)
-
     return this
   }
 
-  move() {
-
-  }
 }
 
 class Lotto {
@@ -67,7 +55,7 @@ class Lotto {
     this.balls = this.balls.filter((ball, index) => random !== index)
 
     if (this.lossed >= 5)
-      document.querySelector('.container').removeChild(button)
+      button.style.opacity = 0
   }
 }
 
