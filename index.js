@@ -1,4 +1,5 @@
 const winnerNumbersDiv = document.querySelector('.winner-numbers')
+const button = document.querySelector('button')
 
 class Ball {
   constructor(container, num) {
@@ -50,11 +51,13 @@ class Lotto {
 
   loss() {
     if (!this.balls.length || this.lossed >= 5) return
+
     const random = Math.floor(Math.random() * this.balls.length)
     const winnerBall = this.balls[random]
     winnerNumbersDiv.innerHTML += '<div>' + (winnerBall.num) + '</div>'
     winnerBall.ball.classList.add('winner-ball')
     winnerBall.ball.style.backgroundColor = 'red'
+    winnerBall.ball.style.color = 'white'
     setTimeout(() => {
       winnerBall.ball.classList.remove('winner-ball')
     }, 500)
@@ -62,11 +65,14 @@ class Lotto {
     this.lossed++
 
     this.balls = this.balls.filter((ball, index) => random !== index)
+
+    if (this.lossed >= 5)
+      document.querySelector('.container').removeChild(button)
   }
 }
 
 const lotto = new Lotto()
 
-document.querySelector('button').addEventListener('click', () => lotto.loss())
+button.addEventListener('click', () => lotto.loss())
 
 
