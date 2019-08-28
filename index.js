@@ -41,13 +41,16 @@ class Lotto {
     if (!this.balls.length || this.lossed >= 5) return
 
     const random = Math.floor(Math.random() * this.balls.length)
-    const winnerBall = this.balls[random]
-    winnerNumbersDiv.innerHTML += '<div>' + (winnerBall.num) + '</div>'
-    winnerBall.ball.classList.add('winner-ball')
-    winnerBall.ball.style.backgroundColor = 'red'
-    winnerBall.ball.style.color = 'white'
+    const winner = this.balls[random]
+    winner.ball.style.opacity = 0
+
+    const ball = document.createElement('div')
+    ball.classList.add('winner-ball')
+    winnerNumbersDiv.appendChild(ball)
+
     setTimeout(() => {
-      winnerBall.ball.classList.remove('winner-ball')
+      ball.innerText = winner.num
+      ball.classList.add('ball')
     }, 500)
 
     this.lossed++
@@ -62,5 +65,3 @@ class Lotto {
 const lotto = new Lotto()
 
 button.addEventListener('click', () => lotto.loss())
-
-
